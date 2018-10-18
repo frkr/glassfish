@@ -1,18 +1,18 @@
 FROM openjdk:8-jdk-alpine
-ENV GLASSFISH_HOME /usr/local/glassfish4
+ENV GLASSFISH_HOME /usr/local/glassfish5
 ENV PATH $PATH:$JAVA_HOME/bin:$GLASSFISH_HOME/bin
 
 RUN apk add --no-cache curl unzip zip inotify-tools
 
-RUN curl -L -o /tmp/glassfish-4.1.zip http://download.java.net/glassfish/4.1.2/release/glassfish-4.1.2.zip && \
-unzip /tmp/glassfish-4.1.zip -d /usr/local && \
-rm -f /tmp/glassfish-4.1.zip
+RUN curl -L -o /tmp/glassfish.zip http://download.oracle.com/glassfish/5.0/release/glassfish-5.0.zip && \
+unzip /tmp/glassfish.zip -d /usr/local && \
+rm -f /tmp/glassfish.zip
 
 RUN apk del curl unzip zip
 
 EXPOSE 8080
 EXPOSE 4848
 EXPOSE 8181
-WORKDIR /usr/local/glassfish4
+WORKDIR /usr/local/glassfish5
 
 CMD asadmin start-domain --verbose
